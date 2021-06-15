@@ -36,3 +36,5 @@ root                    (project root folder)
 ## Authors
 ---
 * Dallin Poole, Poole66@byui.edu
+* Cameron Fuller  ful17005@byui.edu
+* Braxton Meyer braxtonmeyer@gmail.com
