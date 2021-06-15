@@ -42,7 +42,7 @@ class Player:
     def prompt_guess(self):
         if (self.is_playing):
             self.guess_is_high = input(f"Player {self.name}, higher or lower? [h/l]: ").lower() == 'h'
-        
+        return self.guess_is_high        
 
     """
     prompt_guess
@@ -52,6 +52,7 @@ class Player:
     def prompt_continue(self):
         if(self.is_playing): 
             self.is_playing = input(f"Player {self.name}, keep playing? [y/n]: ").lower() == 'y'
+        return self.is_playing
 
     """
     get_score
@@ -68,6 +69,9 @@ class Player:
     If the player's score <= 0, they can't keep playing.
     """
     def add_score(self, points):
+        if (not self.is_playing):
+            return
+            
         self.score += points
         if (self.score <= 0):
             self.is_playing = False
