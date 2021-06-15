@@ -93,3 +93,10 @@ class Player:
     def get_name(self):
         return self.name
 
+    """
+    get_is_playing
+    Parameters: None
+    Description: Gets if the player is still playing.
+    """
+    def get_is_playing(self):
+        return self.is_playing
