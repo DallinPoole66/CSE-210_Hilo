@@ -1,5 +1,5 @@
-from dealer import Dealer
-from player import Player
+from game.dealer import Dealer
+from game.player import Player
 class Director:
     '''
     The director is responsible for managing the deck, player and dealer.
@@ -42,7 +42,7 @@ class Director:
         for player in range(Self.num_players):
             if Self.players[player].get_is_playing():
                 #I'm doing it like this so that we don't allocate a new list every turn
-                Self.guesses[player] = Self.players[player].promt_guess()
+                Self.guesses[player] = Self.players[player].prompt_guess()
     
     def update_scores(Self, last_card, next_card):
         results = [False] * Self.num_players
@@ -58,7 +58,7 @@ class Director:
                     points = 100
                 else:
                     points = -75
-                Self.players[player].add_points(points)
+                Self.players[player].add_score(points)
 
     def display_scores(Self):
         print("Scores: ")
@@ -67,13 +67,14 @@ class Director:
     
     def ask_still_playing(Self):
         for player in Self.players:
-            player.prompt_contiune()
+            player.prompt_continue()
             
 
     
     def play(Self):
         Self.playing = True
         while Self.playing:
+            Self.round += 1
             last_card = Self.dealer.get_last_card()
             print("The card is: ", last_card)
             
@@ -85,13 +86,25 @@ class Director:
             Self.update_scores(last_card, next_card)
             Self.display_scores()
 
-            # TODO: Add check to drop out players that score drops below 0
-
             Self.ask_still_playing()
             
-            # TODO: Add check to see if a player has won and end the game if they have
-
-            Self.round += 1
+            active_players = 0
+            for player in Self.players:
+                if player.get_is_playing():
+                    active_players += 1
+            if active_players < 2 or (Self.max_rounds != 0 and Self.max_rounds == Self.round):
+                Self.playing = False
+        print("Game Over!")
+        # If we did not stop due to max_rounds then there is only one player left, 
+        # so find that one player and display their name
+        if not (Self.max_rounds != 0 and Self.max_rounds == Self.round):
+            for player in Self.players:
+                if player.get_is_playing():
+                    print(player.get_name(), " Won!")
+                    break
+        # Display the final scores
+        print("\nFinal Scores:")
+        Self.display_scores()
 
 
 
