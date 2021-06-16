@@ -49,7 +49,7 @@ class Director:
         for player in range(Self.num_players):
             if Self.players[player].get_is_playing():
                 # If they guessed that it would be higher Self.guesses would be true and last_card would be less then next card
-                results[player] = Self.guesses[player] == last_card < next_card
+                results[player] = Self.guesses[player] == (last_card < next_card)
 
         for player in range(Self.num_players):
             if Self.players[player].get_is_playing():
@@ -80,7 +80,8 @@ class Director:
             
             Self.update_guesses()
             
-            next_card = Self.dealer.draw_card()
+            Self.dealer.draw_card()
+            next_card = Self.dealer.get_next_card()
             print("Next card was: ", next_card)
 
             Self.update_scores(last_card, next_card)
@@ -103,7 +104,7 @@ class Director:
                     print(player.get_name(), " Won!")
                     break
         # Display the final scores
-        print("\nFinal Scores:")
+        print("\nFinal ", end="")
         Self.display_scores()
 
 
