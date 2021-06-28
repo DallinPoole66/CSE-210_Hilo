@@ -51,7 +51,7 @@ class Player:
     """
     def prompt_continue(self):
         if(self.is_playing): 
-            self.is_playing = input(f"Player {self.name}, keep playing? [y/n]: ").lower() == 'y'
+            self.is_playing = input(f"{self.name}, keep playing? [y/n]: ").lower() == 'y'
         return self.is_playing
 
     """
