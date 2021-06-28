@@ -21,7 +21,7 @@ class Director:
         while True:
             try: 
                 max_rounds = int(input("Max rounds (0 for no max): "))
-                if(max_rounds < 1):
+                if(max_rounds < 0):
                     raise RuntimeError("Invalid input")
                 return max_rounds
             except Exception as e:
@@ -32,7 +32,7 @@ class Director:
         Self.players = []
         for player in range(Self.num_players):
             name = "player " + str(player)
-            Self.players.append(Player(name, 0))
+            Self.players.append(Player(name, 300))
         Self.max_rounds = Self.get_max_rounds()
         Self.round = 0
         Self.dealer = Dealer()
@@ -93,7 +93,7 @@ class Director:
             for player in Self.players:
                 if player.get_is_playing():
                     active_players += 1
-            if active_players < 2 or (Self.max_rounds != 0 and Self.max_rounds == Self.round):
+            if active_players < 1 or (Self.max_rounds != 0 and Self.max_rounds == Self.round):
                 Self.playing = False
         print("Game Over!")
         # If we did not stop due to max_rounds then there is only one player left, 
